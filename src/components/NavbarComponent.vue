@@ -4,12 +4,10 @@
     style="font-family: 'Segoe UI', Tahoma, Verdana, sans-serif"
   >
     <div class="container-fluid">
-      <!-- Logo -->
       <router-link to="/" class="navbar-brand">
         <img src="@/assets/img/TatyiLekaren.png" style="width: 130px" alt="Tatyi Pharmacy Logo" />
       </router-link>
 
-      <!-- Toggler Button for Mobile -->
       <button
         class="navbar-toggler"
         type="button"
@@ -23,10 +21,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Navbar Items -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-0">
-          <!-- Changed from ms-auto to ms-0 to align items to the left -->
           <li v-for="(link, name) in menuItems" :key="name" class="nav-item">
             <router-link
               :to="link"
@@ -56,6 +52,7 @@ export default defineComponent({
         Researchers: '/researchers',
         Products: '/products',
         FAQ: '/faq',
+        ShoppingCart: '/cart',
       },
       isCollapsed: true,
     }

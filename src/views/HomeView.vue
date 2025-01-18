@@ -1,14 +1,14 @@
 <template>
   <div>
-    <!-- Top Section -->
     <section class="bg-dark text-light p-5 text-center">
       <div class="container p-5">
         <div class="d-sm-flex align-items-center justify-content-between">
           <div>
             <h1>Join our team!</h1>
             <p class="lead my-4">
-              We are hiring, people who want to help others. If you'd like to become a member of our
-              research team, you can sign up right here, or you can read more about us down below.
+              We would be glad if you'd sign up for our newsletter. If you'd like to become a member
+              of our research team, you can sign up right here, of course you can read more about us
+              down below.
             </p>
             <router-link to="/signup">
               <button class="btn btn-primary btn-lg">Sign up</button>
@@ -24,8 +24,7 @@
       </div>
     </section>
 
-    <!-- About Us Section -->
-    <section id="aboutus" class="bg-light p-5">
+    <section id="aboutus" class="bgcolor p-5">
       <div class="container">
         <div class="row align-items-center justify-content-between">
           <div class="col-md p-5">
@@ -69,7 +68,6 @@
       </div>
     </section>
 
-    <!-- Gallery Section -->
     <section class="bg-dark text-light p-5 text-center" id="gallery">
       <div class="container-fluid justify-content center align-items-center">
         <h3 class="text-align: center p-2">Gallery</h3>
@@ -140,8 +138,7 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="p-5">
+    <section id="contact" class="bgcolor p-5">
       <h2 class="text-center mb-5">Contact</h2>
       <div class="container-fluid">
         <div class="row g-5">
@@ -165,7 +162,6 @@
               width="650"
               height="280"
               style="border: 0"
-              allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
             ></iframe>

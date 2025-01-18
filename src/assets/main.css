@@ -1,13 +1,17 @@
 /* Example styles from your original design */
-html,
-body {
-  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+
+.bgcolor {
   background-color: rgb(162, 162, 175);
+}
+
+.font {
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
 }
 
 p {
   font-size: 25px;
   font-style: italic;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
 }
 
 h1 {
@@ -94,12 +98,10 @@ h5 {
   box-shadow: none;
 }
 
-/* Add some spacing between nav items */
 .nav-item {
   margin: 0 0.5rem;
 }
 
-/* Adjust mobile view */
 @media (max-width: 991.98px) {
   .navbar-collapse {
     padding: 1rem 0;
@@ -107,5 +109,71 @@ h5 {
 
   .nav-item {
     margin: 0.5rem 0;
+  }
+}
+
+/*PRODUCTS*/
+.card {
+  /* transition: transform 0.2s ease-in-out;*/
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-img-top {
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+  padding: 0.5rem 1rem;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
+/*Products*/
+.card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-img-top {
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+  padding: 0.5rem 1rem;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
   }
 }

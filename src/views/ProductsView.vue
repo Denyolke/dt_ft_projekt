@@ -1,42 +1,40 @@
 <template>
   <div class="container mt-5 pt-5">
-    <!-- Page Title -->
-    <h1 class="text-center mb-4">Our Products</h1>
-
-    <!-- Products Grid -->
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-      <div v-for="product in products" :key="product.id" class="col">
-        <div class="card h-100 shadow-sm">
-          <img
-            :src="product.image"
-            :alt="product.name"
-            class="card-img-top p-3"
-            style="object-fit: contain; height: 200px"
-          />
-          <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text">{{ product.description }}</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="h5 mb-0">${{ product.price }}</span>
-              <button class="btn btn-primary">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="font">Our Products</h1>
+      <CartButton />
     </div>
+    <ProductsComponent :products="products" @add-to-cart="handleAddToCart" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
+import ProductsComponent from '@/components/ProductsComponent.vue'
+import CartButton from '@/components/CartButton.vue'
+import { useCartStore } from '@/stores/cartStore'
 
-// Import images with correct path
 import medicine1 from '@/assets/img/medicine1.jpg'
 import medicine2 from '@/assets/img/medicine2.jpg'
 import medicine3 from '@/assets/img/medicine3.jpg'
 
 export default defineComponent({
   name: 'ProductsView',
+  components: {
+    ProductsComponent,
+    CartButton,
+  },
+  setup() {
+    const cartStore = useCartStore()
+
+    onMounted(() => {
+      cartStore.initializeCart()
+    })
+
+    return {
+      cartStore,
+    }
+  },
   data() {
     return {
       products: [
@@ -57,46 +55,20 @@ export default defineComponent({
         {
           id: 3,
           name: 'Medicine 3',
-          description: 'Premium healthcare solution.',
+          description: 'Premium healthcare solution, for our premium customers.',
           price: 49.99,
           image: medicine3,
         },
       ],
     }
   },
+  methods: {
+    handleAddToCart(productId: number) {
+      const product = this.products.find((p) => p.id === productId)
+      if (product) {
+        this.cartStore.addToCart(product)
+      }
+    },
+  },
 })
 </script>
-
-<style scoped>
-.card {
-  transition: transform 0.2s ease-in-out;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card-img-top {
-  transition: transform 0.3s ease-in-out;
-}
-
-.card:hover .card-img-top {
-  transform: scale(1.05);
-}
-
-.btn-primary {
-  background-color: #0d6efd;
-  border: none;
-  padding: 0.5rem 1rem;
-}
-
-.btn-primary:hover {
-  background-color: #0b5ed7;
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 0 15px;
-  }
-}
-</style>
