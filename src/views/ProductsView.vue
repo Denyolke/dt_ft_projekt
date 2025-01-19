@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5 pt-5">
+  <div class="container mt-5 pt-5 p-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1 class="font">Our Products</h1>
       <CartButton />

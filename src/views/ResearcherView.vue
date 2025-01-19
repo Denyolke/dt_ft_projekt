@@ -1,26 +1,28 @@
 <template>
-  <div class="container py-5" style="font-family: 'Segoe UI', Tahoma, Verdana, sans-serif">
-    <h1 class="text-center mb-4 p-5">Our Researchers</h1>
-
-    <div v-if="researchersData.length > 0">
-      <table class="table table-striped table-light">
+  <div class="container py-5">
+    <h1 class="text-center mb-4 p-5">Researchers</h1>
+    <div v-if="researchers.length > 0">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Likes Received</th>
+            <th>Likes</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="researcher in researchersData" :key="researcher.id">
+          <tr v-for="researcher in researchers" :key="researcher.id">
             <td>{{ researcher.id }}</td>
             <td>{{ researcher.firstName }}</td>
             <td>{{ researcher.lastName }}</td>
             <td>{{ researcher.likes }}</td>
             <td>
-              <button class="btn btn-primary btn-sm" @click="likeResearcher(researcher.id)">
+              <button
+                class="btn btn-primary btn-sm"
+                @click="incrementLikes(researcher.id)"
+              >
                 Like
               </button>
             </td>
@@ -28,9 +30,8 @@
         </tbody>
       </table>
     </div>
-
     <div v-else>
-      <p class="text-center">Loading researchers...</p>
+      <p class="text-center">No researchers available.</p>
     </div>
   </div>
 </template>
@@ -38,32 +39,24 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useResearcherStore } from '@/stores/researcherStore'
-import { storeToRefs } from 'pinia'
 
 export default defineComponent({
-  name: 'ResearcherView',
+  name: 'ResearcherTable',
   data() {
     return {
-      researchersData: [] as { id: number; firstName: string; lastName: string; likes: number }[],
+      researchers: [] as { id: number; firstName: string; lastName: string; likes: number }[],
     }
   },
   created() {
-    this.loadResearchers()
-  },
-  computed: {
-    store() {
-      return useResearcherStore()
-    },
+    const store = useResearcherStore()
+
+    store.loadResearchers()
+    this.researchers = store.researchers
+
+    this.incrementLikes = store.incrementLikes
   },
   methods: {
-    loadResearchers() {
-      const { researchers } = storeToRefs(this.store)
-      this.store.loadResearchers()
-      this.researchersData = researchers.value
-    },
-    likeResearcher(id: number) {
-      this.store.incrementLikes(id)
-      this.researchersData = storeToRefs(this.store).researchers.value
+    incrementLikes(id: number) {
     },
   },
 })
