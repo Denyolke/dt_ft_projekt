@@ -36,30 +36,35 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed } from 'vue'
-import { storeToRefs } from 'pinia'
+import { defineComponent } from 'vue'
 import { useResearcherStore } from '@/stores/researcherStore'
+import { storeToRefs } from 'pinia'
 
 export default defineComponent({
   name: 'ResearcherView',
-  setup() {
-    const store = useResearcherStore()
-    const { researchers } = storeToRefs(store)
-
-    const researchersData = computed(() => researchers.value)
-
-    onMounted(async () => {
-      await store.loadResearchers()
-    })
-
-    const likeResearcher = async (id: number) => {
-      await store.incrementLikes(id)
-    }
-
+  data() {
     return {
-      researchersData,
-      likeResearcher,
+      researchersData: [] as { id: number; firstName: string; lastName: string; likes: number }[],
     }
+  },
+  created() {
+    this.loadResearchers()
+  },
+  computed: {
+    store() {
+      return useResearcherStore()
+    },
+  },
+  methods: {
+    loadResearchers() {
+      const { researchers } = storeToRefs(this.store)
+      this.store.loadResearchers()
+      this.researchersData = researchers.value
+    },
+    likeResearcher(id: number) {
+      this.store.incrementLikes(id)
+      this.researchersData = storeToRefs(this.store).researchers.value
+    },
   },
 })
 </script>

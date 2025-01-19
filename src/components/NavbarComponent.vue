@@ -52,7 +52,6 @@ export default defineComponent({
         Researchers: '/researchers',
         Products: '/products',
         FAQ: '/faq',
-        ShoppingCart: '/cart',
       },
       isCollapsed: true,
     }

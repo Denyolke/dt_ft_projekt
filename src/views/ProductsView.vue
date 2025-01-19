@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import ProductsComponent from '@/components/ProductsComponent.vue'
 import CartButton from '@/components/CartButton.vue'
 import { useCartStore } from '@/stores/cartStore'
@@ -23,17 +23,6 @@ export default defineComponent({
   components: {
     ProductsComponent,
     CartButton,
-  },
-  setup() {
-    const cartStore = useCartStore()
-
-    onMounted(() => {
-      cartStore.initializeCart()
-    })
-
-    return {
-      cartStore,
-    }
   },
   data() {
     return {
@@ -62,12 +51,20 @@ export default defineComponent({
       ],
     }
   },
+  created() {
+    this.cartStore.initializeCart()
+  },
   methods: {
     handleAddToCart(productId: number) {
       const product = this.products.find((p) => p.id === productId)
       if (product) {
         this.cartStore.addToCart(product)
       }
+    },
+  },
+  computed: {
+    cartStore() {
+      return useCartStore()
     },
   },
 })

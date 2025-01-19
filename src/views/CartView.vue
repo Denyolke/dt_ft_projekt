@@ -75,23 +75,28 @@ import { storeToRefs } from 'pinia'
 
 export default defineComponent({
   name: 'CartView',
-  setup() {
+  data() {
     const cartStore = useCartStore()
     const { cartItems, totalItems, totalPrice } = storeToRefs(cartStore)
-    const { removeFromCart, updateQuantity } = cartStore
-
-    const checkout = () => {
-      alert('Thank you for your purchase!')
-    }
 
     return {
       cartItems,
       totalItems,
       totalPrice,
-      removeFromCart,
-      updateQuantity,
-      checkout,
     }
+  },
+  methods: {
+    updateQuantity(productId: number, quantity: number) {
+      const cartStore = useCartStore()
+      cartStore.updateQuantity(productId, quantity)
+    },
+    removeFromCart(productId: number) {
+      const cartStore = useCartStore()
+      cartStore.removeFromCart(productId)
+    },
+    checkout() {
+      alert('Thank you for your purchase!')
+    },
   },
 })
 </script>

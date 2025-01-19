@@ -1,4 +1,3 @@
-// components/CartButton.vue
 <template>
   <router-link to="/cart" class="btn btn-dark position-relative">
     <i class="bi bi-cart"></i> Cart
@@ -18,13 +17,11 @@ import { storeToRefs } from 'pinia'
 
 export default defineComponent({
   name: 'CartButton',
-  setup() {
-    const cartStore = useCartStore()
-    const { totalItems } = storeToRefs(cartStore)
-
-    return {
-      totalItems,
-    }
+  computed: {
+    totalItems() {
+      const cartStore = useCartStore()
+      return storeToRefs(cartStore).totalItems.value
+    },
   },
 })
 </script>

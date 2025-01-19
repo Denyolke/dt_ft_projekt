@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'FAQAccordionComponent',
@@ -38,34 +38,18 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
-    const activeIndex = ref<number | null>(null)
-
-    const toggleAccordion = (index: number) => {
-      activeIndex.value = activeIndex.value === index ? null : index
-    }
-
-    const isExpanded = (index: number): boolean => {
-      return activeIndex.value === index
-    }
-
+  data() {
     return {
-      activeIndex,
-      toggleAccordion,
-      isExpanded,
+      activeIndex: null as number | null,
     }
+  },
+  methods: {
+    toggleAccordion(index: number) {
+      this.activeIndex = this.activeIndex === index ? null : index
+    },
+    isExpanded(index: number): boolean {
+      return this.activeIndex === index
+    },
   },
 })
 </script>
-
-<style scoped>
-.accordion-button:not(.collapsed) {
-  background-color: rgba(0, 0, 0, 0.03);
-  color: var(--bs-accordion-active-color);
-}
-
-.accordion-button:focus {
-  box-shadow: none;
-  border-color: rgba(0, 0, 0, 0.125);
-}
-</style>
